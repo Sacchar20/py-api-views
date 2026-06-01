@@ -57,7 +57,7 @@ class ActorList(
     mixins.CreateModelMixin,
     GenericAPIView,
 ):
-    
+
     queryset = Actor.objects.all()
     serializer_class = ActorSerializer
 
