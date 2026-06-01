@@ -25,12 +25,8 @@ class ActorSerializer(serializers.Serializer):
         return Actor.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.first_name = validated_data.get(
-            "first_name", instance.first_name
-        )
-        instance.last_name = validated_data.get(
-            "last_name", instance.last_name
-        )
+        instance.first_name = validated_data.get("first_name", instance.first_name)
+        instance.last_name = validated_data.get("last_name", instance.last_name)
         instance.save()
         return instance
 
@@ -60,12 +56,8 @@ class MovieSerializer(serializers.Serializer):
     description = serializers.CharField()
     duration = serializers.IntegerField()
 
-    actors = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Actor.objects.all()
-    )
-    genres = serializers.PrimaryKeyRelatedField(
-        many=True, queryset=Genre.objects.all()
-    )
+    actors = serializers.PrimaryKeyRelatedField(many=True, queryset=Actor.objects.all())
+    genres = serializers.PrimaryKeyRelatedField(many=True, queryset=Genre.objects.all())
 
     def create(self, validated_data):
         actors = validated_data.pop("actors", [])
@@ -80,9 +72,7 @@ class MovieSerializer(serializers.Serializer):
 
     def update(self, instance, validated_data):
         instance.title = validated_data.get("title", instance.title)
-        instance.description = validated_data.get(
-            "description", instance.description
-        )
+        instance.description = validated_data.get("description", instance.description)
         instance.duration = validated_data.get("duration", instance.duration)
 
         if "actors" in validated_data:
